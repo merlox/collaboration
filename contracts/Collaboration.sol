@@ -20,8 +20,10 @@ contract Collaboration is Ownable {
         ERC20PresetMinterPauser token = new ERC20PresetMinterPauser('Token', 'ERC');
         // 2. mint tokens
         token.mint(address(this), amount);
+		private_token = address(token);
         // 3. emit the event
         emit TokenMint(address(token), amount);
+		return true;
     }
 
 	/**

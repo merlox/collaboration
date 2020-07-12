@@ -1,7 +1,9 @@
 setupWeb3()
-        
+
+let contract
+
 async function setupWeb3() {
-    console.log('Setup web3');
+    console.log('Setting up web3');
     const ethereum = window.ethereum;
     if (typeof ethereum !== 'undefined') {
     try {
@@ -16,12 +18,19 @@ async function setupWeb3() {
     return warningNotification('Metamask not detected', 'You must login to metamask to use this application');
     }
     window.web3.eth.defaultAccount = window.web3.eth.accounts[0];
+    
+    setupContract()
 }
 
 async function setupContract() {
-    const _contract = window.web3.eth.contract(contractAbi).at(icoParticipateAddress);
+    contract = window.web3.eth.contract(contractAbi).at(contractAddress);
 }
 
 function mintToken() {
     console.log('Mint token')
+    contract.mintToken('123456789', {
+        gas: 8e6,
+    }, (err, res) => {
+        console.log('Err ->', err, 'Res ->', res)
+    })
 }
