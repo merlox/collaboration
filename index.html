@@ -7,7 +7,13 @@
 </head>
 <body>
     <h1>Collaboration smart contract</h1>
-    <button onClick="mintToken()" type="button">Mint Token</button>
+    <input type="number" onchange="setAmount(event.target.value)" placeholder="Amount...">
+    <button onclick="mintToken()" type="button">Mint Token</button>
+    <button onclick="callToken('mint')" type="button">Call Token Mint</button>
+    <button onclick="callToken('pause')" type="button">Call Token Pause</button>
+    <button onclick="callToken('unpause')" type="button">Call Token Unpause</button>
+    <div id="token-address"></div>
+    <div id="response"></div>
 </body>
     <script src="src/contract.js"></script>
     <script src="src/index.js"></script>

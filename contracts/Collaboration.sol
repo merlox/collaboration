@@ -18,6 +18,7 @@ contract Collaboration is Ownable {
         require(amount > 0, 'The amount must be larger than zero');
         // 1. deploy new custom ERC20PresetMinterPauser
         ERC20PresetMinterPauser token = new ERC20PresetMinterPauser('Token', 'ERC');
+		token.grantRole(keccak256("MINTER_ROLE"), address(this));
         // 2. mint tokens
         token.mint(address(this), amount);
 		private_token = address(token);
@@ -33,6 +34,8 @@ contract Collaboration is Ownable {
 	 * https://solidity.readthedocs.io/en/v0.4.24/abi-spec.html#function-selector-and-argument-encoding.
 	*/
 	function callToken(bytes calldata data) payable external onlyOwner {
-
+		// The delegatecall doesn't update the receiving contract's state so we use .call()
+		// private_token.delegatecall(data);
+		private_token.call(data);
     }
 }
